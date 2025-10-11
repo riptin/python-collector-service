@@ -1,7 +1,8 @@
 import install_packages
-import mqtt_callbacks
 
 install_packages.check_packages()
+
+import mqtt_callbacks
 
 client = mqtt_callbacks.mqtt.Client()
 client.on_connect = mqtt_callbacks.on_connect
