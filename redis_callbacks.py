@@ -9,7 +9,7 @@ if not redis:
     sys.exit(1)
 
 try:
-    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD, decode_responses=True)
+    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD)
     pong = redis_client.ping()
 except ConnectionError as e:
     print("Could not connect to Redis:", e)
@@ -27,7 +27,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     topic = msg.topic
-    payload = msg.payload
+    payload = msg.payload.decode('utf-8')
     data = {
         "topic": topic,
         "value": payload,
