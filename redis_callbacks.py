@@ -11,7 +11,6 @@ if not redis:
 try:
     redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD, decode_responses=True)
     pong = redis_client.ping()
-    print("Redis connection successful:", pong)
 except ConnectionError as e:
     print("Could not connect to Redis:", e)
     sys.exit(1)
@@ -33,9 +32,9 @@ def on_message(client, userdata, msg):
     timestamp = datetime.now().isoformat()
     data = {"topic": topic, "value": payload, "timestamp": timestamp}
 
-    try:
-        redis_client.lpush(REDIS_QUEUE_NAME, json.dumps(data))
-    except Exception as e:
-        print("Redis push error:", e)
+    # try:
+    #     redis_client.lpush(REDIS_QUEUE_NAME, json.dumps(data))
+    # except Exception as e:
+    #     print("Redis push error:", e)
 
     print(f"Processed: {topic} = {payload}")
