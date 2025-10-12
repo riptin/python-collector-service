@@ -9,7 +9,7 @@ import config
 if not redis:
     print("Redis package not available. Please check requirements.txt.")
     sys.exit(1)
-redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT)
+redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, password=config.REDIS_PASSWORD)
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to MQTT broker with code:", rc)
