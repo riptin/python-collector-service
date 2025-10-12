@@ -1,8 +1,8 @@
 # import install_packages
 # install_packages.check_packages()
 
-import redis_callbacks
 from config import BROKER, PORT
+import redis_callbacks
 import paho.mqtt.client as mqtt
 
 client = mqtt.Client()
