@@ -9,7 +9,7 @@ if not redis:
     sys.exit(1)
 
 try:
-    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD)
+    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD, db=0)
     pong = redis_client.ping()
 except ConnectionError as e:
     print("Could not connect to Redis:", e)
