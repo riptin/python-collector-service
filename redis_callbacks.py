@@ -35,7 +35,7 @@ def on_message(client, userdata, msg):
     }
 
     try:
-        redis_client.lpush(REDIS_QUEUE_NAME, json.dumps(data))
+        redis_client.rpush(REDIS_QUEUE_NAME, json.dumps(data))
     except Exception as e:
         print("Redis push error:", e)
 
