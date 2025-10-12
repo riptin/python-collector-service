@@ -9,7 +9,8 @@ import config
 if not redis:
     print("Redis package not available. Please check requirements.txt.")
     sys.exit(1)
-redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, password=config.REDIS_PASSWORD)
+    
+redis_client = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, password=config.REDIS_PASSWORD, decode_responses=True)
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to MQTT broker with code:", rc)
@@ -17,7 +18,8 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     topic = msg.topic
-    payload = msg.payload.decode()
+    #payload = msg.payload.decode()
+    payload = msg.payload
     timestamp = datetime.now().isoformat()
     data = {"topic": topic, "value": payload, "timestamp": timestamp}
 
