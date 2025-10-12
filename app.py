@@ -1,6 +1,6 @@
-import install_packages
+# import install_packages
 
-install_packages.check_packages()
+# install_packages.check_packages()
 
 import mqtt_callbacks
 
