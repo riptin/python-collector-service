@@ -14,10 +14,13 @@ try:
     print("Redis connection successful:", pong)
 except ConnectionError as e:
     print("Could not connect to Redis. ConnectionError:", e)
+    sys.exit(1)
 except TimeoutError as e:
     print("Redis connection timed out:", e)
+    sys.exit(1)
 except Exception as e:
     print("Some other Redis error occurred:", e)
+    sys.exit(1)
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to MQTT broker with code:", rc)
