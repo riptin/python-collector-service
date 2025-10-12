@@ -27,14 +27,16 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     topic = msg.topic
-    #payload = msg.payload.decode()
     payload = msg.payload
-    timestamp = datetime.now().isoformat()
-    data = {"topic": topic, "value": payload, "timestamp": timestamp}
+    data = {
+        "topic": topic,
+        "value": payload,
+        "timestamp": datetime.now().isoformat()
+    }
 
-    # try:
-    #     redis_client.lpush(REDIS_QUEUE_NAME, json.dumps(data))
-    # except Exception as e:
-    #     print("Redis push error:", e)
+    try:
+        redis_client.lpush(REDIS_QUEUE_NAME, json.dumps(data))
+    except Exception as e:
+        print("Redis push error:", e)
 
     print(f"Processed: {topic} = {payload}")
