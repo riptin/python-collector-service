@@ -13,13 +13,13 @@ try:
     pong = redis_client.ping()
     print("Redis connection successful:", pong)
 except ConnectionError as e:
-    print("Could not connect to Redis. ConnectionError:", e)
+    print("Could not connect to Redis:", e)
     sys.exit(1)
 except TimeoutError as e:
     print("Redis connection timed out:", e)
     sys.exit(1)
 except Exception as e:
-    print("Some other Redis error occurred:", e)
+    print("Error:", e)
     sys.exit(1)
 
 def on_connect(client, userdata, flags, rc):
