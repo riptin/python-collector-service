@@ -10,8 +10,14 @@ if not redis:
 
 try:
     redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD, decode_responses=True)
+    pong = redis_client.ping()
+    print("Redis connection successful:", pong)
+except ConnectionError as e:
+    print("Could not connect to Redis. ConnectionError:", e)
+except TimeoutError as e:
+    print("Redis connection timed out:", e)
 except Exception as e:
-    print("Error connecting to redis:", e)
+    print("Some other Redis error occurred:", e)
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to MQTT broker with code:", rc)
