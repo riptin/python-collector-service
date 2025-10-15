@@ -39,4 +39,4 @@ def on_message(client, userdata, msg):
     except Exception as e:
         print("Redis push error:", e)
 
-    print(f"Processed: {topic} = {payload}")
+    print(f"Processed: {topic}")
