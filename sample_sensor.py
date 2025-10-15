@@ -28,7 +28,7 @@ while True:
     ])
     gateway = random_ip()
     sensor_type_id = random.choice([1,2])
-    sensor_device_id = random.choice(1,2,3)
+    sensor_device_id = random.choice([1,2,3])
     data = {
         "value": round(random.uniform(20, 30), 2),
         "temp": random.choice(["°F", "°C"])
