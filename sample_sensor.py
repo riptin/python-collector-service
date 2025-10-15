@@ -28,7 +28,7 @@ while True:
         publish.single(f"sensors/{facility_id}/{gateway}/{sensor_type_id}/{sensor_device_id}", json.dumps(data), hostname=BROKER, auth=AUTH)
     except Exception as e:
         print("Publish failed:", e)
-    time.sleep(10)
+    time.sleep(1)
 
 
 
