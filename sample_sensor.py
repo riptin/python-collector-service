@@ -14,21 +14,19 @@ def random_mac():
 def random_ip():
     return ".".join(str(random.randint(0, 255)) for _ in range(4))
 
-# topic structure: sensors/<facility_id>/<gateway>/<sensor_type_id>/<sensor_id>
+# topic structure: sensors/<facility_id>/<gateway>/<device_type_id>/<device_mac_address>
 while True:
     # facility_id = random.randint(1, 40)
+    # device_type_id = random.randint(1, 4)
     # mac_address = random_mac()
-    # sensor_type_id = random.randint(1, 4)
-    # sensor_device_id = random.randint(1, 100)
     facility_id = random.choice([19])
-    mac_address = random.choice([
+    gateway = random_ip()
+    device_type_id = random.choice([1,2])
+    device_mac_address = random.choice([
         "B2:B7:C4:CC:F3:F8",
         "7B:47:5C:D0:9A:F8",
         "E3:94:83:4E:E2:71"
-    ])
-    gateway = random_ip()
-    sensor_type_id = random.choice([1,2])
-    sensor_device_id = random.choice([1,2,3])
+    ])   
     data = {
         "value": round(random.uniform(20, 30), 2),
         "temp": random.choice(["°F", "°C"])
@@ -37,7 +35,7 @@ while True:
     print(f"Temp: {data["value"]}{data["temp"]}")
 
     try:
-        publish.single(f"sensors/{facility_id}/{gateway}/{sensor_type_id}/{mac_address}", json.dumps(data), hostname=BROKER, auth=AUTH)
+        publish.single(f"sensors/{facility_id}/{gateway}/{device_type_id}/{device_mac_address}", json.dumps(data), hostname=BROKER, auth=AUTH)
     except Exception as e:
         print("Publish failed:", e)
     time.sleep(1)
