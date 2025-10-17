@@ -1,6 +1,7 @@
 import json
 import redis
 import sys
+import asyncio
 from datetime import datetime
 from config import REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_QUEUE_NAME, TOPIC
 
@@ -25,7 +26,7 @@ def on_connect(client, userdata, flags, rc):
     print("Connected to MQTT broker with code:", rc)
     client.subscribe(TOPIC)
 
-def on_message(client, userdata, msg):
+async def on_message(client, userdata, msg, max=0):
     topic = msg.topic
     payload = msg.payload.decode('utf-8')
     data = {
@@ -35,8 +36,17 @@ def on_message(client, userdata, msg):
     }
 
     try:
+        queue_len = await redis_client.llen(REDIS_QUEUE_NAME)
+
+        if max > 0 and queue_len >= max:
+            print("Queue limit {max} reached")
+            return
+    
         redis_client.rpush(REDIS_QUEUE_NAME, json.dumps(data))
     except Exception as e:
         print("Redis push error:", e)
 
     print(f"Processed: {topic}")
+
+def on_message_sync(client, userdata, msg, max=0):
+    asyncio.run(on_message(client, userdata, msg, max=max))
