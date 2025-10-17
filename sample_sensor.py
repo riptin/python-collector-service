@@ -1,6 +1,12 @@
 import time, random, json
 import paho.mqtt.publish as publish
 from config import BROKER, USERNAME, PASSWORD
+import argparse
+
+parser = argparse.ArgumentParser(description="Interval between calls in seconds.")
+parser.add_argument('-s', '--sleep', type=int, required=False, help='Interval between calls in seconds')
+args = parser.parse_args()
+sleep_time = args.sleep
 
 AUTH = {
     'username': USERNAME,
@@ -38,7 +44,8 @@ while True:
         publish.single(f"sensors/{facility_id}/{gateway}/{device_type_id}/{device_mac_address}", json.dumps(data), hostname=BROKER, auth=AUTH)
     except Exception as e:
         print("Publish failed:", e)
-    time.sleep(1)
+    if sleep_time > 0:
+        time.sleep(1)
 
 
 
