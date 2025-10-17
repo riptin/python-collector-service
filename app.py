@@ -14,7 +14,7 @@ max_number = args.max
 
 client = mqtt.Client()
 client.on_connect = redis_callbacks.on_connect
-client.on_message = partial(redis_callbacks.on_message_sync, max=max_number)
+client.on_message = partial(redis_callbacks.on_message, max=max_number)
 client.username_pw_set(USERNAME, PASSWORD)
 
 client.connect(BROKER, int(PORT), 60)
