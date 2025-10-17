@@ -45,7 +45,7 @@ while True:
     except Exception as e:
         print("Publish failed:", e)
     if sleep_time > 0:
-        time.sleep(1)
+        time.sleep(sleep_time)
 
 
 
