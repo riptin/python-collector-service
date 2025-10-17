@@ -4,7 +4,7 @@ from config import BROKER, USERNAME, PASSWORD
 import argparse
 
 parser = argparse.ArgumentParser(description="Interval between calls in seconds.")
-parser.add_argument('-s', '--sleep', type=int, required=False, help='Interval between calls in seconds')
+parser.add_argument('-s', '--sleep', type=int, default=0, required=False, help='Interval between calls in seconds')
 args = parser.parse_args()
 sleep_time = args.sleep
 
