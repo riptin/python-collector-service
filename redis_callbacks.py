@@ -1,5 +1,6 @@
 import json
-import redis
+# import redis
+import redis.asyncio as redis
 import sys
 import asyncio
 from datetime import datetime
