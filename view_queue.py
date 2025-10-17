@@ -8,3 +8,4 @@ items = redis_client.lrange(REDIS_QUEUE_NAME, 0, -1)
 for item in items:
     data = json.loads(item)
     print(data)
+print("Number of rows: ", redis_client.llen(REDIS_QUEUE_NAME))
