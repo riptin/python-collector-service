@@ -10,7 +10,7 @@ import argparse
 parser = argparse.ArgumentParser(description="Maximum number of queued rows.")
 parser.add_argument('-m', '--max', type=int, required=False, help='Maximum number to process')
 args = parser.parse_args()
-max_number = args.number
+max_number = args.max
 
 client = mqtt.Client()
 client.on_connect = redis_callbacks.on_connect
