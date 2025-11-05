@@ -28,7 +28,10 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg, max=0):
     topic = msg.topic
-    payload = msg.payload.decode('utf-8')
+    try:
+        payload = msg.payload.decode('utf-8')
+    except UnicodeDecodeError:
+        payload = msg.payload.hex() 
     data = {
         "topic": topic,
         "value": payload,
